@@ -6,5 +6,5 @@ var USER_OR_CHAT_ID = 199626730;
 var bot = new telegram_bot_api_1({ token: BOT_TOKEN });
 bot.sendMessage({
     chat_id: USER_OR_CHAT_ID,
-    text: 'Hello, World!',
+    text: 'Мне нужны твоя одежда и мотоцикл!',
 });

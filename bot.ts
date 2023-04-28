@@ -1,4 +1,5 @@
 import TelegramBot from 'telegram-bot-api';
+import TelegramBotAPI from 'node-telegram-bot-api';
 
 const BOT_TOKEN = '5887191883:AAFT0wTSxSZoqfU97wOa-B5EyOjAIs0KhGI';
 const USER_OR_CHAT_ID = 199626730;
