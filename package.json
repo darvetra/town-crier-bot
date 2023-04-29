@@ -1,6 +1,22 @@
 {
+  "name": "rotgar-guide-bot",
+  "description": "rotgar-guide-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "dev": "ts-node index.ts",
+    "run": "node index.ts"
+  },
   "dependencies": {
-    "node-telegram-bot-api": "^0.61.0",
-    "telegram-bot-api": "^2.0.1"
+    "axios": "^1.4.0",
+    "telegraf": "^4.12.2"
+  },
+  "devDependencies": {
+    "@grammyjs/types": "^3.1.1",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1"
   }
 }
