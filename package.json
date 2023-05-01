@@ -1,6 +1,22 @@
 {
+  "name": "rotgar-guide-bot",
+  "description": "rotgar-guide-bot",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "run": "node index.js"
+  },
   "dependencies": {
-    "node-telegram-bot-api": "^0.61.0",
-    "telegram-bot-api": "^2.0.1"
+    "axios": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "telegraf": "^4.12.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }
