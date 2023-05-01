@@ -21,7 +21,7 @@ export const Buttons = {
 export const buttonMainScreenOptions = [
     [{text: Buttons.TOURNAMENT_AWARD, callback_data: 'tournament-award'}],
     [{text: Buttons.TOURNAMENT_GIFTS, callback_data: 'tournament-gifts'}],
-    [{text: Buttons.RATE_TON, callback_data: 'ton-rate'}]
+    // [{text: Buttons.RATE_TON, callback_data: 'ton-rate'}]
 ];
 
 
@@ -37,9 +37,16 @@ export const dataUser = {
 // Бои и победы
 export const urlFights = 'https://api.rotgar.game/reports';
 
-export const dataFights = {
+export const dataAllFights = {
     "state": "report_by_fights",
     "rating_fights": 0,
+    "from": "01-05-2023",
+    "to": "08-05-2023"
+};
+
+export const dataRatingFights = {
+    "state": "report_by_fights",
+    "rating_fights": 1,
     "from": "01-05-2023",
     "to": "08-05-2023"
 };
