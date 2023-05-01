@@ -2,6 +2,7 @@
   "name": "rotgar-guide-bot",
   "description": "rotgar-guide-bot",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "keywords": [],
   "author": "",
