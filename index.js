@@ -1,22 +1,25 @@
+// 'use strict'
+require('dotenv').config();
 const { Telegraf } = require('telegraf');
 const { message } = require('telegraf/filters');
+
+const bot = new Telegraf(process.env.BOT_TOKEN);
 
 // import { Telegraf } from 'telegraf';
 // import { message } from 'telegraf/filters';
 // import axios from 'axios';
 const axios = require('axios');
 
-// env
-const BOT_TOKEN = '5887191883:AAFT0wTSxSZoqfU97wOa-B5EyOjAIs0KhGI';
 
-// const bot = new Telegraf(process.env.BOT_TOKEN);
-const bot = new Telegraf(BOT_TOKEN);
+// env
+
+// const bot = new Telegraf(BOT_TOKEN);
 
 // const buttonOptions = {
 //     reply_markup: JSON.stringify({
 //         inline_keyboard: [
-//             [{text: 'Дары Синдри', callback_data: 'tournament-1'}],
-//             [{text: 'Турнир Громовержца', callback_data: 'tournament-2'}],
+//             [{text: 'Дары Синдри', callback_data: 'tournament-gifts'}],
+//             [{text: 'Турнир Громовержца', callback_data: 'tournament-thunderer'}],
 //             [{text: 'Курс TON', callback_data: 'ton-rate'}]
 //         ]
 //     })
@@ -29,8 +32,8 @@ bot.start((ctx) => ctx.replyWithPhoto(
         caption: 'Привет, дружище! Что ты хочешь узнать?',
         reply_markup: JSON.stringify({
             inline_keyboard: [
-                [{text: '🏆 Турнир Громовержца', callback_data: 'tournament-2'}],
-                [{text: 'Дары Синдри', callback_data: 'tournament-1'}],
+                [{text: '🏆 Турнир Громовержца', callback_data: 'tournament-thunderer'}],
+                [{text: 'Дары Синдри', callback_data: 'tournament-gifts'}],
                 [{text: 'Информация о персонаже', callback_data: 'info'}],
                 [{text: 'Курс TON', callback_data: 'ton-rate'}]
             ]
@@ -42,8 +45,8 @@ bot.action('back', (ctx) => {
     ctx.editMessageCaption('Что ты хочешь узнать?', {
         reply_markup: {
             inline_keyboard: [
-                [{text: '🏆 Турнир Громовержца', callback_data: 'tournament-2'}],
-                [{text: 'Дары Синдри', callback_data: 'tournament-1'}],
+                [{text: '🏆 Турнир Громовержца', callback_data: 'tournament-thunderer'}],
+                [{text: 'Дары Синдри', callback_data: 'tournament-gifts'}],
                 [{text: 'Информация о персонаже', callback_data: 'info'}],
                 [{text: 'Курс TON', callback_data: 'ton-rate'}]
             ]
@@ -81,7 +84,7 @@ const optionsFights = {
 
 
 
-bot.action('tournament-2', (ctx) => {
+bot.action('tournament-thunderer', (ctx) => {
     ctx.editMessageCaption('Хочешь увидеть лидеров Турнира Громовержца ? Эта функция будет здесь позже', {
         reply_markup: {
             inline_keyboard: [
@@ -91,7 +94,7 @@ bot.action('tournament-2', (ctx) => {
     });
 });
 
-bot.action('tournament-1', (ctx) => {
+bot.action('tournament-gifts', (ctx) => {
     ctx.editMessageCaption('Хочешь увидеть лидеров турнира "Дары Синдри" ? Эта функция будет здесь позже', {
         reply_markup: {
             inline_keyboard: [
