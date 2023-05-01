@@ -9,6 +9,7 @@ export const ScreenDescription = {
 // Кнопки
 export const Buttons = {
     TOURNAMENT_THUNDERER: '🏆 Турнир Громовержца',
+    TOURNAMENT_AWARD: 'Награда Героев',
     TOURNAMENT_GIFTS: 'Дары Синдри',
     RATE_TON: 'Курс TON',
     CHARACTER_INFO: 'Информация о персонаже',
@@ -18,7 +19,7 @@ export const Buttons = {
 
 // Кнопки основного экрана
 export const buttonMainScreenOptions = [
-    [{text: Buttons.TOURNAMENT_THUNDERER, callback_data: 'tournament-thunderer'}],
+    [{text: Buttons.TOURNAMENT_AWARD, callback_data: 'tournament-award'}],
     [{text: Buttons.TOURNAMENT_GIFTS, callback_data: 'tournament-gifts'}],
     [{text: Buttons.RATE_TON, callback_data: 'ton-rate'}]
 ];
