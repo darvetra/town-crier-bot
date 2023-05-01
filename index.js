@@ -52,24 +52,51 @@ bot.action('tournament-thunderer', (ctx) => {
 
 
 // Экран "Турнир "Дары Синдри""
+
+// const tournamentsGiftsDescription = `
+// Каждую неделю, игрок сыгравший наибольшее количество боев награждается предметом экипировки.
+//
+// Лидеры этой недели:
+// 1.
+// 2.
+// 3.
+//
+// Становись сильнее и побеждай в рейтинговых боях с крутыми призами в Турнире Громовержцев!
+// `;
+
 bot.action('tournament-gifts', (ctx) => {
-    ctx.editMessageCaption('Хочешь увидеть лидеров турнира "Дары Синдри" ? Эта функция будет здесь позже', {
+    axios.post(urlFights, dataFights, optionsFights)
+        .then(response => {
+            const players = response.data;
+            const tournamentsGiftsDescription = `
+                Каждую неделю, игрок сыгравший наибольшее количество боев награждается предметом экипировки. 
+
+                Лидеры этой недели:
+                1. ${players[0].full_name}
+                2. ${players[1].full_name}
+                3. ${players[2].full_name}
+                4. ${players[3].full_name}
+                5. ${players[4].full_name}
+
+                Становись сильнее и побеждай в рейтинговых боях с крутыми призами в Турнире Громовержцев!
+            `;
+            ctx.editMessageCaption(`${tournamentsGiftsDescription}`, {
         reply_markup: {
             inline_keyboard: [
                 [{ text: Buttons.BACK, callback_data: 'back' }]
             ]
         }
     });
+        })
+        .
 
-    axios.post(urlFights, dataFights, optionsFights)
-        .then(response => console.log(response.data))
-        .catch(error => console.error(error));
+        catch(error => console.error(error));
 });
 
 
 // Экран "Курс TON"
 bot.action('ton-rate', (ctx) => {
-    ctx.editMessageCaption(`Хочешь узнать курс TON? ${ctx.from.first_name}? ${ctx.from.first_name}`, {
+    ctx.editMessageCaption(`Хочешь узнать курс TON? ${ctx.from.first_name}? ${ctx.from.first_name} Кстати, а ты знал что можно купить подписку телеграм премиум за ТОН? на фрашменте? `, {
         reply_markup: {
             inline_keyboard: [
                 [{ text: 'Назад', callback_data: 'back' }]
