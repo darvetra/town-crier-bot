@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Telegraf } from 'telegraf';
 
 import {
-    COINGECKO_API_URL,
+    // COINGECKO_API_URL,
     Buttons,
     buttonMainScreenOptions,
     ScreenDescription,
