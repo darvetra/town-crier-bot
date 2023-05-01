@@ -1,6 +1,6 @@
 const { Telegraf } = require('telegraf');
 const { message } = require('telegraf/filters');
-//
+
 // import { Telegraf } from 'telegraf';
 // import { message } from 'telegraf/filters';
 // import axios from 'axios';
@@ -31,11 +31,55 @@ bot.start((ctx) => ctx.replyWithPhoto(
             inline_keyboard: [
                 [{text: '🏆 Турнир Громовержца', callback_data: 'tournament-2'}],
                 [{text: 'Дары Синдри', callback_data: 'tournament-1'}],
+                [{text: 'Информация о персонаже', callback_data: 'info'}],
                 [{text: 'Курс TON', callback_data: 'ton-rate'}]
             ]
         })
     }
 ));
+
+bot.action('back', (ctx) => {
+    ctx.editMessageCaption('Что ты хочешь узнать?', {
+        reply_markup: {
+            inline_keyboard: [
+                [{text: '🏆 Турнир Громовержца', callback_data: 'tournament-2'}],
+                [{text: 'Дары Синдри', callback_data: 'tournament-1'}],
+                [{text: 'Информация о персонаже', callback_data: 'info'}],
+                [{text: 'Курс TON', callback_data: 'ton-rate'}]
+            ]
+        }
+    });
+});
+
+// user_info
+const urlUser = 'https://api.rotgar.game/users';
+const dataUser = {
+    state: 'get_by_hide_id',
+    hide_id: '4s0ikmhn'
+};
+// axios.post(url, {
+//     state: 'get_by_hide_id',
+//     hide_id: '4s0ikmhn'
+// })
+//     .then(response => console.log(response.data))
+//     .catch(error => console.error(error));
+
+
+// tournament
+const urlFights = 'https://api.rotgar.game/reports';
+const dataFights = {
+    "state": "report_by_fights",
+    "rating_fights": 0,
+    "from": "01-05-2023",
+    "to": "08-05-2023"
+};
+const optionsFights = {
+    headers: {
+        'Content-Type': 'application/json',
+    }
+};
+
+
 
 bot.action('tournament-2', (ctx) => {
     ctx.editMessageCaption('Хочешь увидеть лидеров Турнира Громовержца ? Эта функция будет здесь позже', {
@@ -55,29 +99,71 @@ bot.action('tournament-1', (ctx) => {
             ]
         }
     });
+
+    axios.post(urlFights, dataFights, optionsFights)
+        .then(response => console.log(response.data))
+        .catch(error => console.error(error));
 });
 
-bot.action('ton-rate', (ctx) => {
-    ctx.editMessageCaption('Хочешь узнать курс TON? Эта функция будет здесь позже.', {
+// bot.action('info', async (ctx) => {
+bot.action('info', (ctx) => {
+    ctx.editMessageCaption(
+`
+Информация о персонаже:
+ID Персонажа: ${ctx.from.hide_id}
+Имя: ${ctx.from.first_name}
+Уровень: ${ctx.from.user_level}
+Боевой рейтинг: ${ctx.from.user_rating}
+Тикеты: ${ctx.from.user_tickets}
+Очки сброса: ${ctx.from.reset_points}
+`
+
+        // `
+        // Информация о персонаже:\n +
+        // ID Персонажа: ${ctx.from.hide_id}\n
+        // Уровень: ${ctx.from.user_level}\n
+        // Здоровье: ${ctx.from.user_hp}\n
+        // Урон: ${ctx.from.user_damage}\n
+        // Тикеты: ${ctx.from.user_tickets}\n
+        // Тикеты: ${ctx.from.reset_points}\n
+        // `
+        , {
         reply_markup: {
             inline_keyboard: [
                 [{ text: 'Назад', callback_data: 'back' }]
             ]
         }
     });
+
+    axios.post(urlUser, dataUser)
+        .then(response => console.log(response.data))
+        .catch(error => console.error(error));
 });
 
-bot.action('back', (ctx) => {
-    ctx.editMessageCaption('New caption', {
+// "https://api.coingecko.com/api/v3/simple/price?ids="&B10&"&vs_currencies=USD"
+const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3';
+
+
+
+bot.action('ton-rate', (ctx) => {
+    ctx.editMessageCaption(`Хочешь узнать курс TON? ${ctx.from.first_name}? ${ctx.from.first_name}`, {
         reply_markup: {
             inline_keyboard: [
-                [{text: '🏆 Турнир Громовержца', callback_data: 'tournament-2'}],
-                [{text: 'Дары Синдри', callback_data: 'tournament-1'}],
-                [{text: 'Курс TON', callback_data: 'ton-rate'}]
+                [{ text: 'Назад', callback_data: 'back' }]
             ]
         }
     });
+
+    axios.get(`${COINGECKO_API_URL}/simple/price?ids=bitcoin&vs_currencies=usd`)
+        .then(response => {
+            console.log(response.data.bitcoin.usd);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
 });
+
 
 
 
@@ -102,6 +188,7 @@ bot.hears('О! Ну давай, расскажи нам))');
 // Ладно, фигня все это . я анонсирую свой турнир
 // условия
 // название из мифологии, называет его своим приятель.
+// Именем "и.о. Короля" объявляю Турнир Громовержцев открытым!
 
 // твист: Глашатай это Локи
 // Озвучка бота с помощью , ,бота озвучки  tsslr или типа того
