@@ -1,6 +1,6 @@
 {
-  "name": "rotgar-guide-bot",
-  "description": "rotgar-guide-bot",
+  "name": "town-crier-bot",
+  "description": "town-crier-bot",
   "version": "1.0.0",
   "type": "module",
   "main": "index.js",
