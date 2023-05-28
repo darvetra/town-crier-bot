@@ -35,7 +35,11 @@ bot.start((ctx) => ctx.replyWithPhoto(
 
 // Главный экран, по возвращению
 bot.action('back', (ctx) => {
-    ctx.editMessageCaption(ScreenDescription.BACK, {
+        ctx.editMessageMedia({
+            type: 'photo',
+            media: { source: 'src/img/town-crier.png' },
+            caption: ScreenDescription.BACK,
+        }, {
         reply_markup: {
             inline_keyboard: buttonMainScreenOptions
         }
@@ -49,15 +53,14 @@ bot.action('tournament-challenge', (ctx) => {
         .then(response => {
             const players = response.data;
             // console.log(players)
-            const playersList = players.slice(0, 10).map((player, index) => `${index + 1}. ${player.full_name} [${player.user_level}] \n   🏆${player.win}   🛡${player.fights}   ☠${player.loos} 🎖${(Math.floor(player.win / player.fights * 100))} 🏅${player.user_rating}`).join('\n');
-            const tournamentsGiftsDescription = `Турнир "Испытание героев" (рейтинговые поединки)\n\nПериод проведения: ${FROM} - ${TO_FACT}\n\nСтановись сильнее и побеждай в рейтинговых поединках с крутыми призами. Турнир проходит каждую неделю. Еженедельный призовой фонд турнира 10 TON (~1500 руб.) и 2 предмета экипировки, разделят между собой два самых сильных бойца.\n\nПризовые места: \n🏆 максимальное количество побед \n🏆 максимальный винрейт среди топ-10 \n \nЛидеры этой недели:\n${playersList}\n \n🛡 – всего поединков, 🏆 – победы, ☠ – поражения, 🎖 - winrate %, 🏅 - MMR\n`;
+            const playersChallengeList = players.slice(0, 10).map((player, index) => `${index + 1}. ${player.full_name} [${player.user_level}] \n   🏆${player.win}   🛡${player.fights}   ☠${player.loos} 🎖${(Math.floor(player.win / player.fights * 100))} 🏅${player.user_rating}`).join('\n');
+            const tournamentsGiftsDescription = `Турнир "Испытание героев" (рейтинговые поединки)\n\nПериод проведения: ${FROM} - ${TO_FACT}\n\nСтановись сильнее и побеждай в рейтинговых поединках с крутыми призами. Турнир проходит каждую неделю. Еженедельный призовой фонд турнира 10 TON (~1500 руб.) и 2 предмета экипировки, разделят между собой два самых сильных бойца.\n\nПризовые места: \n🏆 максимальное количество побед \n🏆 максимальный винрейт среди топ-10 \n \nЛидеры этой недели:\n${playersChallengeList}\n \n🛡 – всего поединков, 🏆 – победы, ☠ – поражения, 🎖 - winrate %, 🏅 - MMR\n`;
 
-            // меняет картинку, но исчезает кнопка
-            // ctx.editMessageMedia({
-            //     type: 'photo',
-            //     media: { source: 'src/img/award.png' },
-            //     caption: tournamentsGiftsDescription,
-            ctx.editMessageCaption(tournamentsGiftsDescription, {
+            ctx.editMessageMedia({
+                type: 'photo',
+                media: { source: 'src/img/tournament-challenge.png' },
+                caption: tournamentsGiftsDescription,
+            }, {
                 reply_markup: {
                     inline_keyboard: [[{ text: Buttons.BACK, callback_data: 'back' }]]
                 }
@@ -74,15 +77,14 @@ bot.action('tournament-gifts', (ctx) => {
             const players = response.data;
             // console.log(players)
 
-            const playersList = players.slice(0, 10).map((player, index) => `${index + 1}. ${player.full_name} [${player.user_level}] \n   🛡${player.fights}   🏆${player.win}   ☠${player.loos}   🎖${(Math.floor(player.win / player.fights * 100))}`).join('\n');
-            const tournamentsGiftsDescription = `Турнир "Дары Синдри" (тренировочные поединки)\n\nПериод проведения: ${FROM} - ${TO_FACT}\n\nКаждую неделю мастер Синдри награждает двух самых активных игроков случайными предметами экипировки! \n \nПризовые места: \n🏆 максимальное количество поединков \n🏆 максимальный винрейт среди топ-10\n \nЛидеры этой недели:\n${playersList}\n \n🛡 – всего поединков, 🏆 – победы, ☠ – поражения,  🎖 - winrate %\n`;
+            const playersGiftsList = players.slice(0, 10).map((player, index) => `${index + 1}. ${player.full_name} [${player.user_level}] \n   🛡${player.fights}   🏆${player.win}   ☠${player.loos}   🎖${(Math.floor(player.win / player.fights * 100))}`).join('\n');
+            const tournamentsGiftsDescription = `Турнир "Дары Синдри" (тренировочные поединки)\n\nПериод проведения: ${FROM} - ${TO_FACT}\n\nКаждую неделю мастер Синдри награждает двух самых активных игроков случайными предметами экипировки! \n \nПризовые места: \n🏆 максимальное количество поединков \n🏆 максимальный винрейт среди топ-10\n \nЛидеры этой недели:\n${playersGiftsList}\n \n🛡 – всего поединков, 🏆 – победы, ☠ – поражения,  🎖 - winrate %\n`;
 
-            // меняет картинку, но исчезает кнопка
-            // ctx.editMessageMedia({
-            //     type: 'photo',
-            //     media: { source: 'src/img/gift.png' },
-            //     caption: tournamentsGiftsDescription,
-            ctx.editMessageCaption(tournamentsGiftsDescription, {
+            ctx.editMessageMedia({
+                type: 'photo',
+                media: { source: 'src/img/tournament-gifts.png' },
+                caption: tournamentsGiftsDescription,
+            }, {
                 reply_markup: {
                     inline_keyboard: [[{ text: Buttons.BACK, callback_data: 'back' }]]
                 }

@@ -1,8 +1,7 @@
 
 export const FROM = '22-05-2023';
-export const TO = '29-05-2023';
-
 export const TO_FACT = '28-05-2023';
+export const TO = '29-05-2023';
 
 // Описание экранов
 export const ScreenDescription = {
