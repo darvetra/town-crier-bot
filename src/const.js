@@ -1,4 +1,9 @@
 
+export const FROM = '22-05-2023';
+export const TO = '29-05-2023';
+
+export const TO_FACT = '28-05-2023';
+
 // Описание экранов
 export const ScreenDescription = {
     MAIN: ' — Привет, дружище! Что ты хочешь узнать?',
@@ -9,8 +14,8 @@ export const ScreenDescription = {
 // Кнопки
 export const Buttons = {
     TOURNAMENT_THUNDERER: '🏆 Турнир Громовержца',
-    TOURNAMENT_AWARD: 'Награда Героев',
-    TOURNAMENT_GIFTS: 'Дары Синдри',
+    TOURNAMENT_AWARD: '🎖 Турнир "Испытание Героев"  (Рейтинговые поединки)',
+    TOURNAMENT_GIFTS: '🏆 Турнир "Дары Синдри"  (Обычные поединки)',
     RATE_TON: 'Курс TON',
     CHARACTER_INFO: 'Информация о персонаже',
     BACK: 'Назад',
@@ -19,7 +24,7 @@ export const Buttons = {
 
 // Кнопки основного экрана
 export const buttonMainScreenOptions = [
-    [{text: Buttons.TOURNAMENT_AWARD, callback_data: 'tournament-award'}],
+    [{text: Buttons.TOURNAMENT_AWARD, callback_data: 'tournament-challenge'}],
     [{text: Buttons.TOURNAMENT_GIFTS, callback_data: 'tournament-gifts'}],
     // [{text: Buttons.RATE_TON, callback_data: 'ton-rate'}]
 ];
@@ -40,15 +45,19 @@ export const urlFights = 'https://api.rotgar.game/reports';
 export const dataAllFights = {
     "state": "report_by_fights",
     "rating_fights": 0,
-    "from": "01-05-2023",
-    "to": "08-05-2023"
+    "invite_fights": 0,
+    "normal_fights": 1,
+    "from": FROM,
+    "to": TO
 };
 
 export const dataRatingFights = {
     "state": "report_by_fights",
     "rating_fights": 1,
-    "from": "01-05-2023",
-    "to": "08-05-2023"
+    "invite_fights": 0,
+    "normal_fights": 0,
+    "from": FROM,
+    "to": TO
 };
 
 export const optionsFights = {
