@@ -77,8 +77,18 @@ bot.action('tournament-gifts', (ctx) => {
             const players = response.data;
             // console.log(players)
 
+            const top1gifts = players[0];
             const playersGiftsList = players.slice(0, 10).map((player, index) => `${index + 1}. ${player.full_name} [${player.user_level}] \n   🛡${player.fights}   🏆${player.win}   ☠${player.loos}   🎖${(Math.floor(player.win / player.fights * 100))}`).join('\n');
-            const tournamentsGiftsDescription = `Турнир "Дары Синдри" (тренировочные поединки)\n\nПериод проведения: ${FROM} - ${TO_FACT}\n\nКаждую неделю мастер Синдри награждает двух самых активных игроков случайными предметами экипировки! \n \nПризовые места: \n🏆 максимальное количество поединков \n🏆 максимальный винрейт среди топ-10\n \nЛидеры этой недели:\n${playersGiftsList}\n \n🛡 – всего поединков, 🏆 – победы, ☠ – поражения,  🎖 - winrate %\n`;
+
+            const sortByWinRate = players.slice(0, 10).sort((a, b) => {
+                const winRateA = Math.floor(a.win / a.fights * 100);
+                const winRateB = Math.floor(b.win / b.fights * 100);
+                return winRateB - winRateA;
+            });
+
+            const top1giftsByWinRate = sortByWinRate[0];
+
+            const tournamentsGiftsDescription = `Турнир "Дары Синдри" (тренировочные поединки)\n\nПериод проведения: ${FROM} - ${TO_FACT}\n\nКаждую неделю мастер Синдри награждает двух самых активных игроков случайными предметами экипировки! \n \nПризовые места: \n🏆 максимальное количество поединков: 🛡${top1gifts.fights} ${top1gifts.full_name} [${top1gifts.user_level}] \n🏆 максимальный винрейт среди топ-10: 🎖${(Math.floor(top1giftsByWinRate.win / top1giftsByWinRate.fights * 100))} ${top1giftsByWinRate.full_name} [${top1giftsByWinRate.user_level}] \n \nЛидеры этой недели:\n${playersGiftsList}\n \n🛡 – всего поединков, 🏆 – победы, ☠ – поражения,  🎖 - winrate %\n`;
 
             ctx.editMessageMedia({
                 type: 'photo',
