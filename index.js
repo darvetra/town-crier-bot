@@ -52,14 +52,22 @@ bot.action('tournament-challenge', (ctx) => {
     axios.post(urlFights, dataRatingFights, optionsFights)
         .then(response => {
             const players = response.data;
-            // console.log(players)
-            const playersChallengeList = players.slice(0, 10).map((player, index) => `${index + 1}. ${player.full_name} [${player.user_level}] \n   🏆${player.win}   🛡${player.fights}   ☠${player.loos} 🎖${(Math.floor(player.win / player.fights * 100))} 🏅${player.user_rating}`).join('\n');
-            const tournamentsGiftsDescription = `Турнир "Испытание героев" (рейтинговые поединки)\n\nПериод проведения: ${FROM} - ${TO_FACT}\n\nСтановись сильнее и побеждай в рейтинговых поединках с крутыми призами. Турнир проходит каждую неделю. Еженедельный призовой фонд турнира 10 TON (~1500 руб.) и 2 предмета экипировки, разделят между собой два самых сильных бойца.\n\nПризовые места: \n🏆 максимальное количество побед \n🏆 максимальный винрейт среди топ-10 \n \nЛидеры этой недели:\n${playersChallengeList}\n \n🛡 – всего поединков, 🏆 – победы, ☠ – поражения, 🎖 - winrate %, 🏅 - MMR\n`;
+            const playersSortByWins = players.sort((a, b) => b.win - a.win).slice(0, 10);
+            const playersChallengeList = playersSortByWins.slice(0, 10).map((player, index) => `${index + 1}. ${player.full_name} [${player.user_level}] \n    🏆${player.win}   🛡${player.fights}   ☠${player.loos} 🎖${(Math.floor(player.win / player.fights * 100))} 🏅${player.user_rating}`).join('\n');
+            const top1challenge = playersSortByWins[0];
+            const sortByWinRate = players.slice(0, 10).sort((a, b) => {
+                const winRateA = Math.floor(a.win / a.fights * 100);
+                const winRateB = Math.floor(b.win / b.fights * 100);
+                return winRateB - winRateA;
+            });
+            const top1challengeByWinRate = sortByWinRate[0];
+
+            const tournamentsChallengeDescription = `Турнир "Испытание героев" (рейтинговые поединки)\n\nПериод проведения: ${FROM} - ${TO_FACT}\n\nСтановись сильнее и побеждай в рейтинговых поединках с крутыми призами. Турнир проходит каждую неделю. Еженедельный призовой фонд турнира 10 TON (~1500 руб.) и 2 предмета экипировки, разделят между собой два самых сильных бойца.\n\nПризовые места: \n💎 максимальное количество побед: 🏆${top1challenge.win} ${top1challenge.full_name} [${top1challenge.user_level}] \n💎 максимальный винрейт среди топ-10: 🎖${(Math.floor(top1challengeByWinRate.win / top1challengeByWinRate.fights * 100))} ${top1challengeByWinRate.full_name} [${top1challengeByWinRate.user_level}] \n \nЛидеры этой недели:\n${playersChallengeList}\n \n🛡 – всего поединков, 🏆 – победы, ☠ – поражения, 🎖 - winrate %, 🏅 - MMR\n`;
 
             ctx.editMessageMedia({
                 type: 'photo',
                 media: { source: 'src/img/tournament-challenge.png' },
-                caption: tournamentsGiftsDescription,
+                caption: tournamentsChallengeDescription,
             }, {
                 reply_markup: {
                     inline_keyboard: [[{ text: Buttons.BACK, callback_data: 'back' }]]
@@ -78,7 +86,7 @@ bot.action('tournament-gifts', (ctx) => {
             // console.log(players)
 
             const top1gifts = players[0];
-            const playersGiftsList = players.slice(0, 10).map((player, index) => `${index + 1}. ${player.full_name} [${player.user_level}] \n   🛡${player.fights}   🏆${player.win}   ☠${player.loos}   🎖${(Math.floor(player.win / player.fights * 100))}`).join('\n');
+            const playersGiftsList = players.slice(0, 10).map((player, index) => `${index + 1}. ${player.full_name} [${player.user_level}] \n    🛡${player.fights}   🏆${player.win}   ☠${player.loos}   🎖${(Math.floor(player.win / player.fights * 100))}`).join('\n');
 
             const sortByWinRate = players.slice(0, 10).sort((a, b) => {
                 const winRateA = Math.floor(a.win / a.fights * 100);
