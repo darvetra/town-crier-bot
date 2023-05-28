@@ -7,11 +7,23 @@ const axios = require('axios');
 // import { Telegraf } from 'telegraf';
 const { Telegraf } = require('telegraf');
 
-import {
+// import {
+//     FROM,
+//     TO,
+//     TO_FACT,
+//     // COINGECKO_API_URL,
+//     Buttons,
+//     buttonMainScreenOptions,
+//     ScreenDescription,
+//     dataAllFights,
+//     dataRatingFights,
+//     optionsFights,
+//     urlFights
+// } from './src/const.js';
+
+const {
     FROM,
-    TO,
     TO_FACT,
-    // COINGECKO_API_URL,
     Buttons,
     buttonMainScreenOptions,
     ScreenDescription,
@@ -19,7 +31,7 @@ import {
     dataRatingFights,
     optionsFights,
     urlFights
-} from './src/const.js';
+} = require('./src/const.js');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
