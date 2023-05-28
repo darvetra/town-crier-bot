@@ -1,7 +1,9 @@
+// import dotenv from 'dotenv';
 const dotenv = require('dotenv');
 dotenv.config();
 
-import axios from 'axios';
+// import axios from 'axios';
+const axios = require('axios');
 import { Telegraf } from 'telegraf';
 
 import {
