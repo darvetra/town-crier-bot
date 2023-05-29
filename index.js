@@ -1,29 +1,17 @@
-// import dotenv from 'dotenv';
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
+// const dotenv = require('dotenv');
 dotenv.config();
 
-// import axios from 'axios';
-const axios = require('axios');
-// import { Telegraf } from 'telegraf';
-const { Telegraf } = require('telegraf');
+import axios from 'axios';
+// const axios = require('axios');
+import { Telegraf } from 'telegraf';
+// const { Telegraf } = require('telegraf');
 
-// import {
-//     FROM,
-//     TO,
-//     TO_FACT,
-//     // COINGECKO_API_URL,
-//     Buttons,
-//     buttonMainScreenOptions,
-//     ScreenDescription,
-//     dataAllFights,
-//     dataRatingFights,
-//     optionsFights,
-//     urlFights
-// } from './src/const.js';
-
-const {
+import {
     FROM,
+    // TO,
     TO_FACT,
+    // COINGECKO_API_URL,
     Buttons,
     buttonMainScreenOptions,
     ScreenDescription,
@@ -31,7 +19,19 @@ const {
     dataRatingFights,
     optionsFights,
     urlFights
-} = require('./src/const.js');
+} from './src/const.js';
+
+// const {
+//     FROM,
+//     TO_FACT,
+//     Buttons,
+//     buttonMainScreenOptions,
+//     ScreenDescription,
+//     dataAllFights,
+//     dataRatingFights,
+//     optionsFights,
+//     urlFights
+// } = require('./src/const.js');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
