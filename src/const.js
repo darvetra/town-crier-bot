@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 
 // Дата
 export const FROM = '29-05-2023';
@@ -5,6 +6,8 @@ export const TO = '05-06-2023';
 
 export const TO_FACT = '04-06-2023';
 
+export const today = dayjs().format('DD.MM.YYYY');
+// export const startOfWeek = today.startOf('week');
 
 // Ссылки
 export const ButtonLinks = {
@@ -15,8 +18,8 @@ export const ButtonLinks = {
 
 // Описание экранов
 export const ScreenDescription = {
-    MAIN: ` — Привет, дружище! Что ты хочешь узнать? Я здесь для того чтобы помочь тебе, играй в [Rotgar Game](${ButtonLinks.GAME}) и зарабатывай ценные призы в турнирах!`,
-    BACK: ` — Дружище, что ты хочешь узнать на этот раз? Ты уже играл в [Rotgar Game](${ButtonLinks.GAME})? А призы заработал? Может и Telegram Premium приобрел на заработанные в игре тоны?`,
+    MAIN: `приветствую! Что ты хочешь узнать? Я здесь для того чтобы помочь тебе, играй в [Rotgar Game](${ButtonLinks.GAME}) и зарабатывай ценные призы в турнирах!`,
+    BACK: `что ты хочешь узнать на этот раз? Ты уже играл в [Rotgar Game](${ButtonLinks.GAME})? А призы заработал? Может и Telegram Premium приобрел на заработанные в игре тоны?`,
 };
 
 
@@ -24,7 +27,7 @@ export const ScreenDescription = {
 export const Buttons = {
     TOURNAMENT_CHALLENGE: '🎖 Турнир "Испытание Героев"',
     TOURNAMENT_GIFTS: '🏆 Турнир "Дары Синдри"',
-    RATE_TON: 'Курс TON',
+    RATE_TON: '💎 Курс TON',
     HOW_TO_PLAY: '🎮 Как играть?',
     CHARACTER_INFO: 'Информация о персонаже',
     BACK: 'Назад',
@@ -35,8 +38,8 @@ export const Buttons = {
 export const buttonMainScreenOptions = [
     [{text: Buttons.TOURNAMENT_CHALLENGE, callback_data: 'tournament-challenge'}],
     [{text: Buttons.TOURNAMENT_GIFTS, callback_data: 'tournament-gifts'}],
+    [{text: Buttons.RATE_TON, callback_data: 'ton-rate'}],
     [{text: Buttons.HOW_TO_PLAY, url: ButtonLinks.GUIDE}],
-    // [{text: Buttons.RATE_TON, callback_data: 'ton-rate'}]
 ];
 
 

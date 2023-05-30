@@ -8,7 +8,9 @@ import {
     FROM,
     // TO,
     TO_FACT,
-    // COINGECKO_API_URL,
+    today,
+    // startOfWeek,
+    COINGECKO_API_URL,
     Buttons,
     buttonMainScreenOptions,
     ScreenDescription,
@@ -26,7 +28,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 bot.start((ctx) => ctx.replyWithPhoto(
     { source: 'src/img/town-crier.png' },
     {
-        caption: ScreenDescription.MAIN,
+        caption: `${ctx.from.first_name}, ${ScreenDescription.MAIN}`,
         parse_mode: 'Markdown',
         reply_markup: JSON.stringify({
             inline_keyboard: buttonMainScreenOptions
@@ -40,7 +42,7 @@ bot.action('back', (ctx) => {
         ctx.editMessageMedia({
             type: 'photo',
             media: { source: 'src/img/town-crier.png' },
-            caption: ScreenDescription.BACK,
+            caption: `${ctx.from.first_name}, ${ScreenDescription.BACK}`,
             parse_mode: 'Markdown',
         }, {
         reply_markup: {
@@ -65,7 +67,7 @@ bot.action('tournament-challenge', (ctx) => {
             });
             const top1challengeByWinRate = sortByWinRate[0];
 
-            console.log(top1challenge);
+            // console.log(top1challenge);
 
             // 🏆${top1challenge ? top1challenge.win : 132} ${top1challenge ? top1challenge.full_name : 'Городской глашатай'} [${top1challenge ? top1challenge.user_level : 132}]
             const tournamentsChallengeDescription = `*Турнир "Испытание героев"* (_рейтинговые поединки_)\n\nПериод проведения: _${FROM} - ${TO_FACT}_\n\n_Становись сильнее и побеждай в рейтинговых поединках с крутыми призами. Турнир проходит каждую неделю. Еженедельный призовой фонд турнира 💎 10 TON (~1500 руб., см. курс TON) и 2 предмета экипировки, разделят между собой два самых сильных бойца._\n\n*Призовые места:*\n💎 Максимальное количество побед: ⚔${top1challenge.win} [${top1challenge.full_name}](https://api.rotgar.game/webapp/inventory.html?hide_id=${top1challenge.hide_id}) [[${top1challenge.user_level}]] \n💎 Максимальный винрейт среди топ-10: 🎖${(Math.floor(top1challengeByWinRate.win / top1challengeByWinRate.fights * 100))} [${top1challengeByWinRate.full_name}](https://api.rotgar.game/webapp/inventory.html?hide_id=${top1challengeByWinRate.hide_id}) [[${top1challengeByWinRate.user_level}]] \n \n*Лидеры этой недели:*\n${playersChallengeList}\n \n_⚔ – всего поединков, 🏆 – победы, ☠ – поражения, 🎖 - winrate (%), 🏅 - MMR_\n`;
@@ -121,24 +123,33 @@ bot.action('tournament-gifts', (ctx) => {
 
 
 // Экран "Курс TON"
-// bot.action('ton-rate', (ctx) => {
-//     ctx.editMessageCaption(`Хочешь узнать курс TON? ${ctx.from.first_name}? ${ctx.from.first_name} Превратите свои навыки в Rotgar Game в подписку Telegram Premium ! Кстати, а ты знал что можно купить подписку телеграм премиум за ТОН? на фрашменте? `, {
-//         reply_markup: {
-//             inline_keyboard: [
-//                 [{ text: 'Назад', callback_data: 'back' }]
-//             ]
-//         }
-//     });
-//
-//     axios.get(`${COINGECKO_API_URL}/simple/price?ids=bitcoin&vs_currencies=usd`)
-//         .then(response => {
-//             console.log(response.data.bitcoin.usd);
-//         })
-//         .catch(error => {
-//             console.error(error);
-//         });
-//
-// });
+bot.action('ton-rate', (ctx) => {
+
+    const coin = 'the-open-network';
+
+    axios.get(`${COINGECKO_API_URL}/simple/price?ids=${coin}&vs_currencies=usd`)
+        .then(response => {
+            const coinRateUSD = response.data[coin].usd;
+            // console.log(coinRateUSD);
+
+            const rateDescription = `\n*💎 Курс TON* на *${today}* составляет *${coinRateUSD} $*\n\n💭 Кстати, а ты знал что можно купить подписку [Telegram Premium](https://t.me/premium) за 💎TON выигранные на турнире на маркетплейсе [Fragment](https://fragment.com/premium)?\n\nКотировки берутся с [CoinGecko](https://www.coingecko.com/en/coins/toncoin)`
+
+            ctx.editMessageMedia({
+                type: 'photo',
+                media: { source: 'src/img/ton-rate.png' },
+                caption: rateDescription,
+                parse_mode: 'Markdown',
+            }, {
+                reply_markup: {
+                    inline_keyboard: [[{ text: Buttons.BACK, callback_data: 'back' }]]
+                }
+            });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+});
 
 
 // Логи поля ввода
