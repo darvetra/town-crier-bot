@@ -1,12 +1,12 @@
-import dayjs from 'dayjs'
+import dayjs from "dayjs";
+import 'dayjs/locale/ru.js';
 
 // Дата
-export const humanizeDate = (date) => dayjs(date).format('DD.MM.YYYY HH:MM');
+export const europeMoscow = 'Europe/Moscow';
 
-export const FROM = '12-06-2023';
-export const TO = '19-06-2023';
-
-export const TO_FACT = '18-06-2023';
+export const TOURNAMENT_START = dayjs().locale('ru').startOf('week').format('DD-MM-YYYY');
+export const TOURNAMENT_END = dayjs().locale('ru').endOf('week').add(1, 'day').format('DD-MM-YYYY');
+export const TOURNAMENT_END_FACT = dayjs().locale('ru').endOf('week').format('DD-MM-YYYY');
 
 
 // Ссылки
@@ -62,8 +62,8 @@ export const dataTrainingFights = {
     "rating_fights": 0,
     "invite_fights": 0,
     "normal_fights": 1,
-    "from": FROM,
-    "to": TO
+    "from": TOURNAMENT_START,
+    "to": TOURNAMENT_END
 };
 
 export const dataRatingFights = {
@@ -71,8 +71,8 @@ export const dataRatingFights = {
     "rating_fights": 1,
     "invite_fights": 0,
     "normal_fights": 0,
-    "from": FROM,
-    "to": TO
+    "from": TOURNAMENT_START,
+    "to": TOURNAMENT_END
 };
 
 export const optionsFights = {
