@@ -4,6 +4,7 @@ import 'dayjs/locale/ru.js';
 // Дата
 export const europeMoscow = 'Europe/Moscow';
 
+export const TODAY = dayjs().locale('ru').format('DD-MM-YYYY');
 export const TOURNAMENT_START = dayjs().locale('ru').startOf('week').format('DD-MM-YYYY');
 export const TOURNAMENT_END = dayjs().locale('ru').endOf('week').add(1, 'day').format('DD-MM-YYYY');
 export const TOURNAMENT_END_FACT = dayjs().locale('ru').endOf('week').format('DD-MM-YYYY');
@@ -30,7 +31,6 @@ export const Buttons = {
     TOURNAMENT_GIFTS: '🏆 Турнир "Дары Синдри"',
     RATE_TON: '💎 Курс TON',
     HOW_TO_PLAY: '🎮 Как играть?',
-    CHARACTER_INFO: 'Информация о персонаже',
     BACK: 'Назад',
 };
 
@@ -43,16 +43,6 @@ export const buttonMainScreenOptions = [
     [{text: Buttons.RATE_TON, callback_data: 'ton-rate'}],
     [{text: Buttons.HOW_TO_PLAY, url: ButtonLinks.GUIDE}],
 ];
-
-
-// Персонаж
-export const urlUser = 'https://api.rotgar.game/users';
-
-export const dataUser = {
-    state: 'get_by_hide_id',
-    hide_id: '4s0ikmhn'
-};
-
 
 // Бои и победы
 export const urlFights = 'https://api.rotgar.game/reports';
@@ -84,5 +74,3 @@ export const optionsFights = {
 
 // Коингеко и ТОН
 export const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3';
-
-// https://api.coingecko.com/api/v3/simple/price?ids="&B10&"&vs_currencies=USD

@@ -64,10 +64,6 @@ bot.action('tournament-challenge', (ctx) => {
             });
             const top1challengeByWinRate = sortByWinRate[0];
 
-            console.log(top1challenge);
-            console.log(top1challengeByWinRate);
-
-            // 🏆${top1challenge ? top1challenge.win : 132} ${top1challenge ? top1challenge.full_name : 'Городской глашатай'} [${top1challenge ? top1challenge.user_level : 132}]
             const tournamentsChallengeDescription = `*Турнир "Испытание героев"* (_рейтинговые поединки_)\n\nПериод проведения: _${TOURNAMENT_START} - ${TOURNAMENT_END_FACT}_\n\n_Становись сильнее и побеждай в рейтинговых поединках с крутыми призами. Турнир проходит каждую неделю. Еженедельный призовой фонд турнира 💎 10 TON (~1500 руб., см. курс TON) и 2 предмета экипировки, разделят между собой два самых сильных бойца._\n\n*Призовые места:*\n💎 Максимальное количество побед: ⚔${top1challenge.win} [${top1challenge.full_name}](https://api.rotgar.game/webapp/inventory.html?hide_id=${top1challenge.hide_id}) [[${top1challenge.user_level}]] \n💎 Максимальный винрейт среди топ-10: 🎖${(Math.floor(top1challengeByWinRate.win / top1challengeByWinRate.fights * 100))} [${top1challengeByWinRate.full_name}](https://api.rotgar.game/webapp/inventory.html?hide_id=${top1challengeByWinRate.hide_id}) [[${top1challengeByWinRate.user_level}]] \n \n*Лидеры этой недели:*\n${playersChallengeList}\n \n_⚔ – всего поединков, 🏆 – победы, ☠ – поражения, 🎖 - winrate (%), 🏅 - MMR_\n`;
 
             ctx.editMessageMedia({
@@ -90,7 +86,6 @@ bot.action('tournament-gifts', (ctx) => {
     axios.post(urlFights, dataTrainingFights, optionsFights)
         .then(response => {
             const players = response.data;
-            // console.log(players)
 
             const top1gifts = players[0];
             const playersGiftsList = players.slice(0, 10).map((player, index) => `${index + 1}. [${player.full_name}](https://api.rotgar.game/webapp/inventory.html?hide_id=${player.hide_id}) [[${player.user_level}]] \n    ⚔${player.fights}   🏆${player.win}   ☠${player.loos}   🎖${(Math.floor(player.win / player.fights * 100))}`).join('\n');
@@ -128,7 +123,6 @@ bot.action('ton-rate', (ctx) => {
     axios.get(`${COINGECKO_API_URL}/simple/price?ids=${coin}&vs_currencies=usd`)
         .then(response => {
             const coinRateUSD = response.data[coin].usd;
-            // console.log(coinRateUSD);
 
             const rateDescription = `\n*💎 Текущий курс TON* составляет *${coinRateUSD} $*\n\n💭 Кстати, ты знал, что на 💎TON, выигранные на турнире, можно купить подписку [Telegram Premium](https://t.me/premium). Сделать это можно на маркетплейсе [Fragment](https://fragment.com/premium).\n\nКотировки берутся с [CoinGecko](https://www.coingecko.com/en/coins/toncoin) 🦎`
 
@@ -148,27 +142,6 @@ bot.action('ton-rate', (ctx) => {
         });
 
 });
-
-
-// Логи поля ввода
-bot.on('message', (ctx) => {
-    console.log(ctx.message);
-});
-
-// const params = {
-//     state: 'report_by_fights',
-//     rating_fights: 0,
-//     from: '27-04-2023',
-//     to: '29-04-2023',
-// };
-//
-// axios.get('https://api.rotgar.game/reports', { params })
-//     .then(response => {
-//         console.log(response.data);
-//     })
-//     .catch(error => {
-//         console.error(error);
-//     });
 
 
 bot.launch();
